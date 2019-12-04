@@ -1,13 +1,12 @@
 # The Tyranny of the Rocket Equation
 
-fin = open("day1_input.txt", "r")
+fin = open("input_day1.txt", "r")
 lines = fin.readlines()
 
 total = 0
 for line in lines:
   el = line.split()
-  if len(el) > 0:  
-    total += int(el[0]) // 3 - 2
+  total += int(el[0]) // 3 - 2
 
 print(total)
 
@@ -16,11 +15,10 @@ print(total)
 total = 0
 for line in lines:
   el = line.split()
-  if len(el) > 0:
-    x = int(el[0])
+  x = int(el[0])
+  x = x // 3 - 2
+  while x > 0:
+    total += x
     x = x // 3 - 2
-    while x > 0:
-      total += x
-      x = x // 3 - 2
 
 print(total)
