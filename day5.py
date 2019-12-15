@@ -4,7 +4,7 @@ for line in fin:
   arr = line.split(",")
 orig_arr = [int(x) for x in arr]
 
-def op(arr, pos):
+def oper(arr, pos):
   instr = arr[pos] 
   op = instr % 100
   t1 = (instr % 1000 - op) / 100
@@ -19,11 +19,7 @@ def op(arr, pos):
   else:
       par2 = arr[pos+2]
 
-  if op == 1:
-    return par1 + par2
-  if op == 2:
-    return par1 * par2
-  raise Exception("op should have been 1 or 2, but it's ", op)
+  return op, par1, par2
 
 def compute():
   arr = list(orig_arr)
@@ -42,9 +38,30 @@ def compute():
       else:
           print(arr[arr[pos]])
     else:
-        print("Opcode ", arr[pos])
-        arr[arr[pos+3]] = op(arr, pos)
-        pos +=3
+        #print("Opcode ", arr[pos])
+        op, par1, par2  = oper(arr, pos)
+        if op == 1:
+            arr[arr[pos+3]] = par1 + par2
+            pos += 3
+        if op == 2:
+            arr[arr[pos+3]] = par1 * par2
+            pos +=3
+        if op == 5:
+            if par1 != 0:
+                pos = par2 - 1
+            else:
+                pos += 2
+        if op == 6:
+            if par1 == 0:
+                pos = par2 - 1
+            else:
+                pos += 2
+        if op == 7:
+            arr[arr[pos+3]] = int(par1 < par2)
+            pos += 3
+        if op == 8:
+            arr[arr[pos+3]] = int(par1 == par2)
+            pos += 3
     pos += 1
   return arr[0]
 
